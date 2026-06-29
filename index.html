@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FB AutoPilot Studio — Schedule and Track Content Across Facebook & TikTok</title>
+  <meta name="description" content="A content scheduling and analytics tool for professional creators managing multiple Facebook Pages and TikTok accounts.">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fafaf9; color: #1a1a1a; line-height: 1.5; }
+    a { color: inherit; text-decoration: none; }
+
+    .nav { padding: 20px 32px; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .logo { font-weight: 700; font-size: 18px; letter-spacing: -0.3px; }
+    .logo span { color: #2563eb; }
+    .nav-links a { margin-left: 24px; font-size: 14px; color: #555; }
+    .nav-links a:hover { color: #1a1a1a; }
+
+    .hero { max-width: 1100px; margin: 60px auto 100px; padding: 0 32px; text-align: center; }
+    .badge { display: inline-block; padding: 6px 14px; background: #eff6ff; color: #2563eb; border-radius: 999px; font-size: 12px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.3px; }
+    .hero h1 { font-size: 52px; font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 22px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .hero h1 span { background: linear-gradient(120deg, #2563eb, #0ea5e9); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero .sub { font-size: 19px; color: #555; max-width: 640px; margin: 0 auto 36px; }
+    .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 14px 26px; border-radius: 10px; font-weight: 600; font-size: 15px; border: none; cursor: pointer; transition: transform .12s, box-shadow .12s; display: inline-block; }
+    .btn-primary { background: #1a1a1a; color: white; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 10px 30px rgba(0,0,0,.15); }
+    .btn-secondary { background: white; color: #1a1a1a; border: 1px solid #e0e0e0; }
+    .btn-secondary:hover { border-color: #1a1a1a; }
+
+    .screenshot { max-width: 1100px; margin: 0 auto 100px; padding: 0 32px; }
+    .screenshot-frame { background: linear-gradient(135deg, #1a1a1a, #2d2d2d); padding: 16px 16px 0; border-radius: 16px; box-shadow: 0 30px 80px rgba(0,0,0,.18); }
+    .screenshot-frame .dots { display: flex; gap: 6px; padding: 4px 8px 12px; }
+    .screenshot-frame .dots span { width: 11px; height: 11px; border-radius: 50%; background: #444; }
+    .screenshot-frame .dots span:nth-child(1) { background: #ff5f56; }
+    .screenshot-frame .dots span:nth-child(2) { background: #ffbd2e; }
+    .screenshot-frame .dots span:nth-child(3) { background: #27c93f; }
+    .screenshot-placeholder { background: #0d1117; border-radius: 8px 8px 0 0; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; padding: 40px; }
+    .screenshot-placeholder .pl-grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 12px; width: 100%; max-width: 800px; }
+    .pl-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 6px; padding: 14px; }
+    .pl-card .label { font-size: 10px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .pl-card .val { font-size: 22px; color: #3fb950; font-weight: 700; }
+    .pl-card.purple .val { color: #a371f7; }
+    .pl-card.blue .val { color: #58a6ff; }
+
+    .features { background: white; padding: 100px 32px; }
+    .features-inner { max-width: 1100px; margin: 0 auto; }
+    .features h2 { font-size: 36px; font-weight: 700; letter-spacing: -1px; text-align: center; margin-bottom: 12px; }
+    .features .sub { text-align: center; color: #666; max-width: 620px; margin: 0 auto 56px; font-size: 17px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; }
+    .feature { padding: 28px; background: #fafaf9; border-radius: 12px; border: 1px solid #ececec; }
+    .feature .icon { width: 44px; height: 44px; border-radius: 10px; background: #eff6ff; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 22px; }
+    .feature h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .feature p { color: #555; font-size: 14px; line-height: 1.6; }
+
+    .integrations { padding: 100px 32px; text-align: center; }
+    .integrations h2 { font-size: 36px; font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+    .integrations .sub { color: #666; max-width: 620px; margin: 0 auto 50px; font-size: 17px; }
+    .integration-row { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; max-width: 800px; margin: 0 auto; }
+    .integration { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .integration-logo { width: 64px; height: 64px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; color: white; }
+    .integration-logo.fb { background: #1877f2; }
+    .integration-logo.tt { background: linear-gradient(135deg, #000, #25f4ee, #fe2c55); position: relative; }
+    .integration-logo.gd { background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05); }
+    .integration .name { font-weight: 600; font-size: 14px; }
+    .integration .status { font-size: 11px; color: #888; }
+
+    .who { background: #1a1a1a; color: white; padding: 100px 32px; text-align: center; }
+    .who h2 { font-size: 36px; font-weight: 700; letter-spacing: -1px; margin-bottom: 16px; }
+    .who p { font-size: 18px; color: #b0b0b0; max-width: 680px; margin: 0 auto 12px; }
+
+    footer { padding: 50px 32px; border-top: 1px solid #ececec; background: #fafaf9; }
+    footer .inner { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; font-size: 13px; color: #777; }
+    footer a { margin-left: 20px; }
+    footer a:hover { color: #1a1a1a; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 36px; }
+      .hero .sub { font-size: 16px; }
+      .features h2, .integrations h2, .who h2 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="logo">FB AutoPilot <span>Studio</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#integrations">Integrations</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge">★ MULTI-PLATFORM CREATOR WORKFLOW</div>
+    <h1>Schedule. Post. <span>Measure.</span><br>Without the busywork.</h1>
+    <p class="sub">FB AutoPilot Studio is a content scheduling and analytics platform for professional creators managing multiple branded pages across Facebook and TikTok. Connect your Google Drive, set a schedule, and let your library auto-publish on time, every time.</p>
+    <div class="cta-row">
+      <a href="mailto:henry@craftedbyhenry.com" class="btn btn-primary">Request Access</a>
+      <a href="#features" class="btn btn-secondary">See How It Works</a>
+    </div>
+  </section>
+
+  <section class="screenshot">
+    <div class="screenshot-frame">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <div class="screenshot-placeholder">
+        <div style="color: #888; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;">DASHBOARD — EARNINGS &amp; ANALYTICS</div>
+        <div class="pl-grid">
+          <div class="pl-card"><div class="label">Today's Earnings</div><div class="val">$24.17</div></div>
+          <div class="pl-card blue"><div class="label">Last 28 Days</div><div class="val">$487.30</div></div>
+          <div class="pl-card purple"><div class="label">Overall RPM</div><div class="val">$3.42</div></div>
+        </div>
+        <div style="color: #555; font-size: 11px; margin-top: 20px;">Replace this section with a real screenshot of your dashboard before submitting to TikTok.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="features-inner">
+      <h2>Built for serious creators</h2>
+      <p class="sub">Every feature here was added because a creator asked for it.</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <div class="icon">📅</div>
+          <h3>Smart scheduling</h3>
+          <p>Set times of day and posting days for each page. We handle the rest — videos publish on time even when you're asleep.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">📂</div>
+          <h3>Drive-powered library</h3>
+          <p>Drop videos and captions into a Google Drive folder. We auto-detect new content, match captions by filename, and queue them.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">📊</div>
+          <h3>Honest analytics</h3>
+          <p>See real earnings, views, and engagement per page and per platform. No vanity metrics, no inflated numbers.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">⚡</div>
+          <h3>Per-page schedules</h3>
+          <p>Different pages can have different cadences. A meme page can post 5x daily while a story page posts 2x.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🔄</div>
+          <h3>Resilient posting</h3>
+          <p>Server hiccup at 9am? We catch up within 30 minutes. Failed token? We surface it instantly in the activity log.</p>
+        </div>
+        <div class="feature">
+          <div class="icon">🤝</div>
+          <h3>Multi-account</h3>
+          <p>Manage unlimited Facebook Apps and unlimited TikTok accounts from one dashboard. Each with its own credentials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="integrations" id="integrations">
+    <h2>Integrations you already use</h2>
+    <p class="sub">FB AutoPilot Studio uses official APIs from the platforms below. Your data stays with the platforms — we just orchestrate the connections.</p>
+    <div class="integration-row">
+      <div class="integration">
+        <div class="integration-logo fb">f</div>
+        <div class="name">Facebook Pages</div>
+        <div class="status">Graph API · Live</div>
+      </div>
+      <div class="integration">
+        <div class="integration-logo tt">♪</div>
+        <div class="name">TikTok</div>
+        <div class="status">Content Posting API · In review</div>
+      </div>
+      <div class="integration">
+        <div class="integration-logo gd">▲</div>
+        <div class="name">Google Drive</div>
+        <div class="status">Drive API · Live</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="who">
+    <h2>Who it's for</h2>
+    <p>Independent creators and small content teams who post regularly across multiple branded pages — pet content, story pages, faceless niche channels, or anyone running a content series.</p>
+    <p style="margin-top: 18px;">If you're spending hours every week scheduling and renaming files, that time should go into making better content. Studio handles the mechanical part.</p>
+    <div style="margin-top: 36px;">
+      <a href="mailto:henry@craftedbyhenry.com" class="btn" style="background: white; color: #1a1a1a;">Request access →</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="inner">
+      <div>© 2026 FB AutoPilot Studio · Crafted by Henry</div>
+      <div>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Service</a>
+        <a href="mailto:henry@craftedbyhenry.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
